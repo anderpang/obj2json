@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>obj文件转json格式工具</title>
+    <style>
+        .obj2json-form{max-width:810px;width:94%;margin:0 auto;padding:2em 0 8em;background:#EEE;}
+        .upload-area{display:block;position:relative;width:300px;height:160px;margin:1em auto;border:1px solid #CCC;border-radius:1em;text-align:center;background:rgba(255,255,255,0) url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAyNCIgaGVpZ2h0PSIxMDI0IiB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgcC1pZD0iNTM2NyI+PHBhdGggZD0iTTc1My44NiA4NjAuNTljLTguMjggNS43Ny0xNi44NiAxMS4zLTI1LjUyIDE2LjQ2LTExLjg3IDcuMDYtMTUuNzYgMjIuNC04LjcgMzQuMjcgNC42OCA3Ljg2IDEyLjk4IDEyLjIyIDIxLjUxIDEyLjIyIDQuMzUgMCA4Ljc1LTEuMTQgMTIuNzYtMy41MiA5LjY4LTUuNzYgMTkuMjktMTEuOTYgMjguNTQtMTguNCAxMS4zMy03Ljg5IDE0LjExLTIzLjQ4IDYuMjItMzQuOC03LjktMTEuMzQtMjMuNDgtMTQuMTItMzQuODEtNi4yM3oiIGZpbGw9IiMwMDAwRkYiPjwvcGF0aD48cGF0aCBkPSJNOTQ4LjE3IDMyOS4wN2MtMjMuODMtNTYuMzQtNTcuOTMtMTA2LjkzLTEwMS4zNy0xNTAuMzYtNDMuNDQtNDMuNDQtOTQuMDMtNzcuNTQtMTUwLjM2LTEwMS4zNy01OC4zNC0yNC42OC0xMjAuMjktMzcuMTktMTg0LjE1LTM3LjE5UzM4Ni40NyA1Mi42NiAzMjguMTMgNzcuMzRjLTU2LjM0IDIzLjgzLTEwNi45MyA1Ny45My0xNTAuMzYgMTAxLjM3LTQzLjQ0IDQzLjQ0LTc3LjU0IDk0LjAzLTEwMS4zNyAxNTAuMzYtMjQuNjcgNTguMzQtMzcuMTkgMTIwLjI5LTM3LjE5IDE4NC4xNVM1MS43MiA2MzkuMDMgNzYuNCA2OTcuMzdjMjMuODMgNTYuMzQgNTcuOTMgMTA2LjkzIDEwMS4zNyAxNTAuMzYgNDMuNDQgNDMuNDQgOTQuMDMgNzcuNTQgMTUwLjM2IDEwMS4zNyA1OC4zNCAyNC42NyAxMjAuMjkgMzcuMTkgMTg0LjE1IDM3LjE5IDMxLjUyIDAgNjMuMDMtMy4xMiA5My42OC05LjI4IDEzLjU0LTIuNzIgMjIuMy0xNS45IDE5LjU5LTI5LjQzLTIuNzItMTMuNTQtMTUuODktMjIuMy0yOS40NC0xOS41OS0yNy40MSA1LjUxLTU1LjYxIDguMy04My44MyA4LjNDMjc5IDkzNi4yOSA4OS4yMSA3NDYuNSA4OS4yMSA1MTMuMjJTMjc5IDkwLjE1IDUxMi4yOCA5MC4xNXM0MjMuMDcgMTg5Ljc5IDQyMy4wNyA0MjMuMDdjMCAxMTQuMjQtNDQuODMgMjIxLjI5LTEyNi4yMyAzMDEuNDYtOS44NCA5LjY5LTkuOTYgMjUuNTItMC4yNyAzNS4zNSA5LjY5IDkuODQgMjUuNTIgOS45NiAzNS4zNSAwLjI3IDQ0LjIxLTQzLjU0IDc4Ljk0LTk0LjQyIDEwMy4yNC0xNTEuMjMgMjUuMTYtNTguODMgMzcuOTEtMTIxLjM2IDM3LjkxLTE4NS44NSAwLTYzLjg1LTEyLjUxLTEyNS44MS0zNy4xOC0xODQuMTV6IiBmaWxsPSIjMDAwMEZGIj48L3BhdGg+PHBhdGggZD0iTTQyNC4wNyA0NjUuMDJoMTYuNjJ2MTE2LjM5YzAgMTMuODEgMTEuMTkgMjUgMjUgMjVoOTIuMmMxMy44MSAwIDI1LTExLjE5IDI1LTI1VjQ2NS4wMmgxNi42MmMxMC4xMSAwIDE5LjIzLTYuMDkgMjMuMS0xNS40M2EyNS4wMTIgMjUuMDEyIDAgMCAwLTUuNDItMjcuMjVsLTg3LjcyLTg3LjcyYTI1IDI1IDAgMCAwLTE3LjY4LTcuMzIgMjUgMjUgMCAwIDAtMTcuNjggNy4zMmwtODcuNzIgODcuNzJhMjUuMDA1IDI1LjAwNSAwIDAgMC01LjQyIDI3LjI1IDI1LjAwNiAyNS4wMDYgMCAwIDAgMjMuMSAxNS40M3oiIGZpbGw9IiNGRjAwMDAiIHAtaWQ9IjUzNzAiPjwvcGF0aD48cGF0aCBkPSJNNjY0IDU2My43MmMtMTMuODEgMC0yNSAxMS4xOS0yNSAyNXY1NS44MUgzODQuNTd2LTU1LjgxYzAtMTMuODEtMTEuMTktMjUtMjUtMjVzLTI1IDExLjE5LTI1IDI1djEwNS44MUg2ODlWNTg4LjcyYzAtMTMuOC0xMS4xOS0yNS0yNS0yNXoiIGZpbGw9IiNGRjAwMDAiPjwvcGF0aD48L3N2Zz4=) no-repeat 50% 30%;background-size:3em;cursor:pointer;-webkit-transition:background-color .5s;transition:background-color .5s;}
+        .upload-area:hover{background-color:rgba(255,255,255,1);}
+        .upload-area>input{position:absolute;opacity:0;}
+        .upload-area>span{display:block;margin-top:90px;color:#666;}
+        .obj2json-options{width:300px;margin:1em auto;}
+        .obj2json-icon{width:256px;height:128px;}
+        .svg-back{fill:#CCC;transition:fill .3s;}
+        .svg-front{fill:red;;transition:fill .3s;}
+        .obj2json-reverse:checked+.obj2json-icon .svg-back{fill:red;}
+        .obj2json-reverse:checked+.obj2json-icon .svg-front{fill:#CCC;}
+        .obj2json-options select{width:5em;}
+        .obj2json-form>textarea{display:none;width:94%;min-height:500px;margin:0 auto;}
+        .obj2json-btn-wrap{display:-webkit-box;display:flex;margin-top:3em;justify-content: space-between;}
+        .obj2json-btn{display:block;width:45%;height:2.6em;cursor: pointer;}
+    </style>
+</head>
+<body>
+    <form class="obj2json-form">
+        <label class="upload-area" title="Upload">
+           <span>添加.obj与.mtl文件 <br />Drop your .obj and .mtl files here!</span>
+           <input type="file" name="files" />
+        </label>
+
+        <div class="obj2json-options">
+            <p>缩放(Scale):<input type="number" name="scale" value="1" /></p>
+            <p>
+               转面(Reverse):
+                <label>
+                    <input type="checkbox" name="reverse" class="obj2json-reverse" />
+                    <svg class="obj2json-icon" width="512" height="256" viewBox="0 0 512 256" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <defs><marker id="svgarrow" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth"> <path d="M0,0 L0,6 L9,3 z" fill="#f00" /> 
+                        </marker> </defs>
+                        <polygon class="svg-front" points="70,200 120,60 200,160"
+                        style="stroke:#000000;stroke-width:2"/>
+                        <line x2="50" y2="200" x1="100" y1="60" stroke="#0F0" stroke-width="2" marker-end="url(#svgarrow)" />
+                        <line x2="130" y2="40" x1="210" y1="140" stroke="#0F0" stroke-width="2" marker-end="url(#svgarrow)" />
+                        <line x2="200" y2="180" x1="70" y1="220" stroke="#0F0" stroke-width="2" marker-end="url(#svgarrow)" />
+                        <g transform="translate(256 0)">
+                            <polygon class="svg-back" points="70,200 120,60 200,160"
+                            style="stroke:#000000;stroke-width:2"/>
+                            <line x1="50" y1="200" x2="100" y2="60" stroke="#0F0" stroke-width="2" marker-end="url(#svgarrow)" />
+                            <line x1="130" y1="40" x2="210" y2="140" stroke="#0F0" stroke-width="2" marker-end="url(#svgarrow)" />
+                            <line x1="200" y1="180" x2="70" y2="220" stroke="#0F0" stroke-width="2" marker-end="url(#svgarrow)" />
+                        </g>
+        
+                        <line x1="240" y1="150" x2="270" y2="150" stroke="#999" stroke-width="2" marker-end="url(#svgarrow)" />
+                        <line x2="255" y2="170" x1="285" y1="170" stroke="#999" stroke-width="2" marker-end="url(#svgarrow)" />
+                    </svg>
+                </label>
+            </p>
+            <p>
+                精度(Precision):
+               <select name="precision">
+                   <option selected>-1</option>
+                   <option>0</option>
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option>
+                   <option>4</option>
+                   <option>5</option>
+                   <option>6</option>
+                   <option>8</option>
+                   <option>9</option>
+                   <option>10</option>
+                   <option>11</option>
+                   <option>12</option>
+                   <option>13</option>
+                   <option>15</option>
+                   <option>16</option>
+                   <option>17</option>
+                   <option>18</option>
+                   <option>19</option>
+                   <option>20</option>
+               </select>
+               <span>Default</span>
+            </p>
+
+            <p class="obj2json-btn-wrap">
+                <input class="obj2json-btn" type="reset" value="重置 (Reset)" />
+                <input class="obj2json-btn" type="submit" value="解析 (Parse)" />
+            </p>
+        </div>
+        <textarea name="result"></textarea>
+    </form>
+    <script src="./obj2json.js"></script>
+    <script src="./obj2json-main.js"></script>
+</body>
+</html>
